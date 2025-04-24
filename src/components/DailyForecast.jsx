@@ -42,11 +42,13 @@ const DailyForecast = ({ data, unit, theme }) => {
               <div className="flex justify-around mt-3">
                 <div>
                   <p className="text-sm">Day</p>
-                  <p className="font-bold">{convertTemp(dayTemp, unit)}°{unit === 'metric' ? 'C' : 'F'}</p>
+                  <p className="font-bold">{Math.round(dayTemp)}°{unit === 'metric' ? 'C' : 'F'}</p>
+
                 </div>
                 <div>
                   <p className="text-sm">Night</p>
-                  <p className="font-bold text-gray-400">{convertTemp(nightTemp, unit)}°{unit === 'metric' ? 'C' : 'F'}</p>
+                  <p className="font-bold">{Math.round(dayTemp)}°{unit === 'metric' ? 'C' : 'F'}</p>
+
                 </div>
               </div>
             </motion.div>

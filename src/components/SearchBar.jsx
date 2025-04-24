@@ -1,24 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiSearch } from 'react-icons/fi';
-import useDebounce from '../hooks/useDebounce';
 
 const SearchBar = ({ onSearch, theme }) => {
   const [query, setQuery] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const debouncedQuery = useDebounce(query, 500);
-
-  useEffect(() => {
-    if (debouncedQuery.trim().length >= 2) {
-      onSearch(debouncedQuery);
-      setIsTyping(false);
-    }
-  }, [debouncedQuery]);
 
   const handleChange = (e) => {
     const value = e.target.value;
     setQuery(value);
     setIsTyping(value.length > 0);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && query.length >= 2) {
+      onSearch(query);
+    }
+  };
+
+  const handleSearch = () => {
+    if (query.length >= 2) {
+      onSearch(query);
+    }
   };
 
   return (
@@ -33,12 +36,13 @@ const SearchBar = ({ onSearch, theme }) => {
           type="text"
           value={query}
           onChange={handleChange}
+          onKeyDown={handleKeyPress}  // Trigger search on Enter key press
           placeholder="Search for a city..."
           className={`w-full py-3 px-4 ${theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'} focus:outline-none`}
         />
         <button
           className={`absolute right-0 p-3 transition-colors ${query.length >= 2 ? 'text-blue-500' : 'text-gray-400'}`}
-          onClick={() => query.length >= 2 && onSearch(query)}
+          onClick={handleSearch}  // Trigger search on button click
         >
           <FiSearch size={20} />
         </button>

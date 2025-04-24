@@ -98,12 +98,19 @@ const App = () => {
   };
 
   useEffect(() => {
-    // Only fetch weather on initial load or when unit changes
-    if (!initialFetch) {
+    // Only get current location weather if no city is selected
+    if (!location) {
       getCurrentLocationWeather();
-      setInitialFetch(true);
+    } else {
+      // Fetch weather for the selected city again with new unit
+      fetchWeather(null, null, location);
     }
-  }, [unit, initialFetch]);
+  }, [unit]);
+  
+  
+
+
+
 
   const backgroundClass = weatherData
     ? getBackgroundClass(weatherData.weather[0].main)
@@ -159,7 +166,7 @@ const App = () => {
               <CurrentWeather 
                 data={weatherData} 
                 unit={unit} 
-                location={location} 
+                location={`${weatherData.name}, ${weatherData.sys.country}`} 
                 theme={theme} 
               />
               <DailyForecast 

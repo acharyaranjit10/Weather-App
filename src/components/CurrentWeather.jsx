@@ -22,7 +22,8 @@ const CurrentWeather = ({ data, unit, location, theme }) => {
           <div className="flex items-center justify-center md:justify-start">
             <WeatherIcon condition={main} size={80} />
             <span className="text-5xl font-bold ml-4">
-              {convertTemp(temp, unit)}°{unit === 'metric' ? 'C' : 'F'}
+            {Math.round(temp)}°{unit === 'metric' ? 'C' : 'F'}
+
             </span>
           </div>
           <p className="text-xl capitalize mt-2">{description}</p>
@@ -32,7 +33,9 @@ const CurrentWeather = ({ data, unit, location, theme }) => {
           <div className="p-4 rounded-lg bg-opacity-30 bg-gray-500">
             <p>Feels Like</p>
             <p className="text-xl font-semibold">
-              {convertTemp(feels_like, unit)}°{unit === 'metric' ? 'C' : 'F'}
+            {Math.round(feels_like)}°{unit === 'metric' ? 'C' : 'F'}
+
+
             </p>
           </div>
           <div className="p-4 rounded-lg bg-opacity-30 bg-gray-500">
