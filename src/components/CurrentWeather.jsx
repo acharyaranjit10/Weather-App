@@ -9,8 +9,6 @@ const CurrentWeather = ({ data, unit, location, theme, timezone }) => {
   const { description, main } = data.weather[0];
   const { sunrise, sunset } = data.sys;
 
-
-
    // Add effect to update local time
    const [localTime, setLocalTime] = useState('');
    useEffect(() => {
