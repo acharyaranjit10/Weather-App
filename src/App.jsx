@@ -57,6 +57,12 @@ const App = () => {
       const forecastResponse = await axios.get(forecastUrl);
       setForecastData(forecastResponse.data);
 
+      //
+      setWeatherData(prev => ({
+        ...prev,
+        timezone: weatherResponse.data.timezone // Add this line
+      }));
+
       // Add to recent searches if it's a city search
       if (city) {
         const newSearch = {
@@ -108,8 +114,7 @@ const App = () => {
   }, [unit]);
   
   
-
-
+  
 
 
   const backgroundClass = weatherData
@@ -168,6 +173,8 @@ const App = () => {
                 unit={unit} 
                 location={`${weatherData.name}, ${weatherData.sys.country}`} 
                 theme={theme} 
+                timezone={weatherData.timezone}
+                
               />
               <DailyForecast 
                 data={forecastData} 
